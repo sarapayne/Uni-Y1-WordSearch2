@@ -25,12 +25,12 @@ namespace WordSearch
             color = colour;
         }
 
-        public Letter(bool isStart, bool isEnd, Vector pos, string character, string inWord, ConsoleColor colour)
+        public Letter(bool isStart, bool isEnd, Vector pos, string letter, string inWord, ConsoleColor colour)
         {
             wordStart = isStart;
             wordEnd = isEnd;
             position = pos;
-            letter = character;
+            character = letter;
             word = inWord;
             color = colour;
         }
