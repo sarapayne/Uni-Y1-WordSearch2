@@ -4,9 +4,11 @@ namespace WordSearch
 {
     class Program
     {
+        public static WordSearch wordSearch;
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            wordSearch = new WordSearch();
         }
     }
 }
