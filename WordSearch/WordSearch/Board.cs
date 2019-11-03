@@ -13,6 +13,33 @@ namespace WordSearch
             boardArray = new List<Letter>[gameFileToLoad.BoardDimensions.Row, gameFileToLoad.BoardDimensions.Collum];
             AddWordsToBoardArray(gameFileToLoad);
             FillEmptyArrayCells();
+            DisplayBoard();
+        }
+
+        public void DisplayBoard()
+        {
+            Console.Clear();
+            for (int collumIndex = 0; collumIndex < boardArray.GetLength(1); collumIndex++)
+            {   //loop through collums first this time since we want to display row by row in console
+                for (int rowIndex = 0; rowIndex < boardArray.GetLength(0); rowIndex++)
+                {
+                    List<Letter> cellContents = new List<Letter>();
+                    cellContents = boardArray[rowIndex, collumIndex];
+                    ConsoleColor charColour = ConsoleColor.White;
+                    foreach (Letter letter in cellContents)
+                    {   //there should only ever be a possibility of white or 1 other colour in each cell. 
+                        if (charColour != ConsoleColor.Green)
+                        {   //prevent the colour changing from green if green is set
+                            charColour = letter.Color;
+                        }
+                    }
+                    Console.ForegroundColor = charColour;
+                    string cellstring = cellContents[0].Character;
+                    Console.Write(cellstring.PadRight(5));
+                }
+                Console.WriteLine();
+                Console.WriteLine(" ");
+            }
         }
 
         private void FillEmptyArrayCells()
@@ -40,7 +67,7 @@ namespace WordSearch
                         else if (rowIndex == 0)
                         {
                             Letter rowHeadings = new Letter();
-                            rowHeadings.Character = Convert.ToString(rowIndex + 1);
+                            rowHeadings.Character = Convert.ToString(colIndex - 1);
                             rowHeadings.Word = "";
                             rowHeadings.Positon = position;
                             rowHeadings.Word = "";
@@ -54,7 +81,7 @@ namespace WordSearch
                         else if (colIndex == 0)
                         {
                             Letter colHeadings = new Letter();
-                            colHeadings.Character = Convert.ToString(colIndex + 1);
+                            colHeadings.Character = Convert.ToString(rowIndex - 1);
                             colHeadings.Word = "";
                             colHeadings.Positon = position;
                             colHeadings.WordEnd = false;
