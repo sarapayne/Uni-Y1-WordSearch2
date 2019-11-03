@@ -126,7 +126,7 @@ namespace WordSearch
                         }
                         else if (lineSegments[3] == "leftup")
                         {
-                            if (rowIndex - numIndexesToCheck < 0 || collumIndex - lineSegments[0].Length < 0)
+                            if (rowIndex - numIndexesToCheck < 1 || collumIndex - numIndexesToCheck < 1)
                             {
                                 fileRejectReason = lineSegments[0] + " Index out of bounds leftup";
                                 fileOk = false;
@@ -135,7 +135,7 @@ namespace WordSearch
                         }
                         else if (lineSegments[3] == "rightup")
                         {
-                            if (rowIndex + numIndexesToCheck > rowIndexes || collumIndex - lineSegments[0].Length < 0)
+                            if (rowIndex + numIndexesToCheck > rowIndexes || collumIndex - numIndexesToCheck < 1)
                             {
                                 fileRejectReason = lineSegments[0] + " Index out of bounds rightup";
                                 fileOk = false;
@@ -144,7 +144,7 @@ namespace WordSearch
                         }
                         else if (lineSegments[3] == "leftdown")
                         {
-                            if (rowIndex - numIndexesToCheck < 0 || collumIndex + lineSegments[0].Length > collumIndexes)
+                            if (rowIndex - numIndexesToCheck < 1 || collumIndex + numIndexesToCheck > collumIndexes)
                             {
                                 fileRejectReason = lineSegments[0] + " Index out of bounds leftdown";
                                 fileOk = false;
@@ -153,7 +153,7 @@ namespace WordSearch
                         }
                         else if (lineSegments[3] == "rightdown")
                         {
-                            if (rowIndex + numIndexesToCheck > rowIndexes || collumIndex + lineSegments[0].Length > collumIndexes)
+                            if (rowIndex + numIndexesToCheck > rowIndexes || collumIndex + numIndexesToCheck > collumIndexes)
                             {
                                 fileRejectReason = lineSegments[0] + " Index out of bounds rightdown";
                                 fileOk = false;
@@ -171,10 +171,6 @@ namespace WordSearch
                     {
                         fileRejectReason = "1 or more of the word lines does not have 4 elements as CSV";
                         fileOk = false;
-                        break;
-                    }
-                    if (!fileOk)
-                    {
                         break;
                     }
                     List<Letter> wordObjects = GenerateWordObjects(rowIndex, collumIndex, lineSegments[0], lineSegments[3]);
