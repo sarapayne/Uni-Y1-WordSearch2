@@ -13,7 +13,7 @@ namespace WordSearch
 
         public Storage()
         {
-            defaultGame = new string[] { "9,5,2", "algorithm,0,1,right", "virus,5,3,left" };
+            defaultGame = new string[] { "9,5,2", "algorithm,0,1,right", "virus,5,4,left" };
             gameFiles = new List<GameFile>();
             PopulateGameFiles();
         }
