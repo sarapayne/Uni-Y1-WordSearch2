@@ -16,6 +16,12 @@ namespace WordSearch
             DisplayBoard();
         }
 
+        public List<Letter>[,] BoardArray
+        {
+            get { return this.boardArray; }
+            set { this.boardArray = value; }
+        }
+
         public void DisplayBoard()
         {
             Console.Clear();

@@ -335,6 +335,18 @@ namespace WordSearch
             return number;
         }
 
+        public int InGameMenu(string userInput, int maxIndex)
+        {
+            bool isInt = int.TryParse(userInput, out int number);
+            while (!(isInt && number >=0 && number <= maxIndex))
+            {
+                Console.WriteLine("Sorry but your entry was invalid, please enter value again");
+                userInput = Console.ReadLine();
+                isInt = int.TryParse(userInput, out number);
+            }
+            return number;
+        }
+
         public static string InitialMenuChoice(string userInput)
         {
             while (!(userInput == "1" || userInput =="2"))

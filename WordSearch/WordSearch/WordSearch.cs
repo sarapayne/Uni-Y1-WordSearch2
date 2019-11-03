@@ -24,13 +24,53 @@ namespace WordSearch
             InitialMenu();
             gameIndex = new int();
             DisplayWordChoices();
-            //InGameChoices();
+            InGameMenu();
         }
 
         public Storage Storage
         {
             get { return this.Storage; }
             set { this.Storage = value; }
+        }
+
+        private void InGameMenu()
+        {
+            //from user prespective rowIndexs are actually collum numbers and collumIndex are actually row numbers
+            //from user perspective row and collum 0 is actually index1 in the array. So the maximum value is two less than the array length
+            Console.WriteLine("Please Enter a start collum");
+            string userInput = Console.ReadLine();
+            int startRowIndex = validation.InGameMenu(userInput, board.BoardArray.GetLength(0)-2);
+            startRowIndex++; // actual index will be one higher than the user enters
+            Console.WriteLine("Please Enter a start row");
+            userInput = Console.ReadLine();
+            int startColIndex = validation.InGameMenu(userInput, board.BoardArray.GetLength(1) - 2);
+            startColIndex++; //actual index will be one higher than the user enters. 
+            Console.WriteLine("Please Enter the end collum");
+            userInput = Console.ReadLine();
+            int endRowIndex = validation.InGameMenu(userInput, board.BoardArray.GetLength(0) - 2);
+            endRowIndex++; // actual index will be one higher than the user enters
+            Console.WriteLine("Please Enter the end row");
+            userInput = Console.ReadLine();
+            int endColIndex = validation.InGameMenu(userInput, board.BoardArray.GetLength(1) - 2);
+            endColIndex++; //actual index will be one higher than the user enters.
+            //check to see if this is a word
+            //bool wordIsFound = CheckIfWordFound(startRowIndex, startColIndex, endRowIndex, endColIndex, out string wordFound);
+            //add code here to clear last unfound word if it exists!
+            /*
+            if (wordIsFound)
+            {
+                UpdateStausInsideWordsList(wordFound);
+                CheckIfAllWordsFound();
+                wordSearch.UpdateGameObjectsArray(startRowIndex, startColIndex, wordFound, true, false);
+                wordSearch.DisplayBoard();
+            }
+            else
+            {
+                //update here with correct start and finish points
+                wordSearch.UpdateGameObjectsArray(startRowIndex, startColIndex, "", false, false);
+            }
+            */
+
         }
 
         public static void AddWordToGameWordsList(Word word)
