@@ -200,7 +200,7 @@ namespace WordSearch
             else if (menuChoice == "2")
             {
                 gameIndex = FileChoiceMenu();
-                gameToLoad = storage.GameFiles[gameIndex];
+                gameToLoad = storage.GameFiles[gameIndex-1];
             }
             return gameToLoad;
         }
