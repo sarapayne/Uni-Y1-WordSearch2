@@ -22,6 +22,44 @@ namespace WordSearch
             set { this.boardArray = value; }
         }
 
+        public void ClearLastUnfoundWordColours(Vector startIndex, Vector endIndex)
+        {
+            int rowChange;
+            int colChange;
+            int numOfHops;
+            if (endIndex.Row > startIndex.Row) rowChange = 1;
+            else if (endIndex.Row < startIndex.Row) rowChange = -1;
+            else rowChange = 0;
+            if (endIndex.Collum > startIndex.Collum) colChange = 1;
+            else if (endIndex.Collum < startIndex.Collum) colChange = -1;
+            else colChange = 0;
+            if (rowChange != 0)
+            {
+                numOfHops = endIndex.Row - startIndex.Row;
+            }
+            else
+            {
+                numOfHops = endIndex.Collum - startIndex.Collum;
+            }
+            if (numOfHops < 0 )
+            {
+                numOfHops = numOfHops * -1;
+            }
+            int row = startIndex.Row;
+            int col = startIndex.Collum;
+            for (int hops = 0; hops < numOfHops; ++ hops)
+            {
+                List<Letter> cellContents = boardArray[row, col];
+                foreach (Letter letter in cellContents)
+                {
+                    if (letter.Color != ConsoleColor.Green)
+                    {
+                        letter.Color = ConsoleColor.White;
+                    }
+                }
+            }
+        }
+
         public void UpdateBoardArray(int startRowIndex, int startColIndex, string word, bool found, bool clear)
         {
             string direction = "";
@@ -35,8 +73,6 @@ namespace WordSearch
                 if (clear) textColour = ConsoleColor.White;
                 else textColour = ConsoleColor.Red;
             }
-
-
             List<Letter> startCellObjects = boardArray[startRowIndex, startColIndex];
             foreach (Letter letter in startCellObjects)
             {

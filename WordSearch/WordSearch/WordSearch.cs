@@ -13,11 +13,13 @@ namespace WordSearch
         private int gameIndex;
 
         ConsoleColor textColour;
-        Vector lastWrongStartIndex;
-        Vector lastWrongEndIndex;
+        private Vector lastWrongStartIndex;
+        private Vector lastWrongEndIndex;
         
         public WordSearch()
         {
+            lastWrongStartIndex = new Vector();
+            lastWrongEndIndex = new Vector();
             validation = new Validation();
             wordsInCurrentGame = new List<Word>();
             storage = new Storage();
@@ -54,19 +56,32 @@ namespace WordSearch
             int endColIndex = validation.InGameMenu(userInput, board.BoardArray.GetLength(1) - 2);
             endColIndex++; //actual index will be one higher than the user enters.
             bool wordIsFound = CheckIfWordFound(startRowIndex, startColIndex, endRowIndex, endColIndex, out string wordFound);
-            //add code here to clear last unfound word if it exists!
+            board.ClearLastUnfoundWordColours(lastWrongStartIndex, lastWrongEndIndex);
             if (wordIsFound)
             {
                 UpdateStausInsideGameWordsList(wordFound);
                 CheckIfAllWordsFound();
-                wordSearch.UpdateGameObjectsArray(startRowIndex, startColIndex, wordFound, true, false);
-                wordSearch.DisplayBoard();
+                board.UpdateBoardArray(startRowIndex, startColIndex, wordFound, true, false);
+                RefreshDisplay();
             }
             else
             {
                 //update here with correct start and finish points
-                wordSearch.UpdateGameObjectsArray(startRowIndex, startColIndex, "", false, false);
+                board.UpdateBoardArray(startRowIndex, startColIndex, "", false, false);
+                lastWrongStartIndex.Row = startRowIndex;
+                lastWrongStartIndex.Collum = startColIndex;
+                lastWrongEndIndex.Row = endRowIndex;
+                lastWrongEndIndex.Collum = endColIndex;
+                RefreshDisplay();
             }
+        }
+
+        private void RefreshDisplay()
+        {
+            Console.Clear();
+            board.DisplayBoard();
+            DisplayWordChoices();
+            InGameMenu();
         }
 
         private void CheckIfAllWordsFound()
