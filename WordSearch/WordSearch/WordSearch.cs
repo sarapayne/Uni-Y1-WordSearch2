@@ -43,11 +43,11 @@ namespace WordSearch
                 "Enter a number from 1 to 2 inclusive");
             string menuChoice = Console.ReadLine();
             menuChoice = Validation.InitialMenu(menuChoice);
-            LoadGameChoice(menuChoice);
-            board = new Board(menuChoice);
+            GameFile gameFileToLoad = LoadGameChoice(menuChoice);
+            board = new Board(gameFileToLoad);
         }
 
-        private void LoadGameChoice(string menuChoice)
+        private GameFile LoadGameChoice(string menuChoice)
         {
             GameFile gameToLoad = new GameFile();
             if (menuChoice == "1")
@@ -55,21 +55,15 @@ namespace WordSearch
                 bool gameFile1Valid = storage.GameFiles[0].Validated;
                 if (gameFile1Valid)
                 {   //we know this is the same as file index0, so if its valid save some leg work. 
-                    gameToLoad = storage.
-                }
-                else
-                {
-                    //add code here to generate default game file. 
-                }
-                
-                gameIndex = -1; //one lower than any of the possible indexes found in the files list
-                
+                    gameToLoad = storage.DefaultGameFile;
+                } 
             }
             else if (menuChoice == "2")
             {
                 gameIndex = FileChoiceMenu();
+                gameToLoad = storage.GameFiles[gameIndex];
             }
-
+            return gameToLoad;
         }
 
         private int FileChoiceMenu()
