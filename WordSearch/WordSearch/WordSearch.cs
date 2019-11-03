@@ -19,10 +19,11 @@ namespace WordSearch
         public WordSearch()
         {
             validation = new Validation();
+            wordsInCurrentGame = new List<Word>();
             storage = new Storage();
             InitialMenu();
             gameIndex = new int();
-            //PrintWordChoices();
+            DisplayWordChoices();
             //InGameChoices();
         }
 
@@ -30,6 +31,32 @@ namespace WordSearch
         {
             get { return this.Storage; }
             set { this.Storage = value; }
+        }
+
+        public static void AddWordToGameWordsList(Word word)
+        {
+            Word newWord = new Word();
+            newWord = word;
+            wordsInCurrentGame.Add(newWord);
+        }
+
+        private void DisplayWordChoices()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Words To Find");
+            foreach (Word word in wordsInCurrentGame)
+            {
+                if (word.Found)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                Console.WriteLine(word.Name);
+            }
+            Console.ResetColor();
         }
 
         public void InitialMenu()
@@ -44,6 +71,7 @@ namespace WordSearch
             string menuChoice = Console.ReadLine();
             menuChoice = Validation.InitialMenu(menuChoice);
             GameFile gameFileToLoad = LoadGameChoice(menuChoice);
+            wordsInCurrentGame = new List<Word>();
             board = new Board(gameFileToLoad);
         }
 

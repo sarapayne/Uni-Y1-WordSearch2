@@ -116,6 +116,7 @@ namespace WordSearch
             List<Word> words = gameFile.Words;
             foreach (Word word in words)
             {
+                WordSearch.AddWordToGameWordsList(word);
                 List<Letter> wordLetters = new List<Letter>();
                 wordLetters = word.Letters;
                 foreach (Letter letter in wordLetters)
