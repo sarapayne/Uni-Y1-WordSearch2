@@ -22,6 +22,101 @@ namespace WordSearch
             set { this.boardArray = value; }
         }
 
+        public void UpdateBoardArray(int startRowIndex, int startColIndex, string word, bool found, bool clear)
+        {
+            string direction = "";
+            ConsoleColor textColour;
+            if (found)
+            {
+                textColour = ConsoleColor.Green;
+            }
+            else
+            {
+                if (clear) textColour = ConsoleColor.White;
+                else textColour = ConsoleColor.Red;
+            }
+
+
+            List<Letter> startCellObjects = boardArray[startRowIndex, startColIndex];
+            foreach (Letter letter in startCellObjects)
+            {
+                if (letter.Word == word)
+                {
+                    direction = letter.Direction;
+                }
+            }
+            RowColChange(direction, out int rowChange, out int colChange);
+            int rowIndex = startRowIndex;
+            int colIndex = startColIndex;
+            colIndex = startColIndex;
+            for (int hops = 0; hops < word.Length; hops++)
+            {
+                List<Letter> cellContents = boardArray[rowIndex, colIndex];
+                UpdateAllCellObjectsColour(cellContents, word, textColour);
+                rowIndex = rowIndex + rowChange;
+                colIndex = colIndex + colChange;
+            }
+        }
+
+        private void RowColChange(string direction, out int rowChange, out int colChange)
+        {
+            int rChange;
+            int cChange;
+            if (direction == "left")
+            {
+                rChange = -1;
+                cChange = 0;
+            }
+            else if (direction == "right")
+            {
+                rChange = 1;
+                cChange = 0;
+            }
+            else if (direction == "up")
+            {
+                rChange = 0;
+                cChange = -1;
+            }
+            else if (direction == "down")
+            {
+                rChange = 0;
+                cChange = 1;
+            }
+            else if (direction == "leftup")
+            {
+                rChange = -1;
+                cChange = -1;
+            }
+            else if (direction == "rightup")
+            {
+                rChange = 1;
+                cChange = -1;
+            }
+            else if (direction == "leftdown")
+            {
+                rChange = -1;
+                cChange = 1;
+            }
+            else
+            {//direction is right down
+                rChange = 1;
+                cChange = 1;
+            }
+            rowChange = rChange;
+            colChange = cChange;
+        }
+
+        private void UpdateAllCellObjectsColour(List<Letter> cellContents, string word, ConsoleColor textColour)
+        {
+            foreach (Letter letter in cellContents)
+            {
+                if (letter.Word == word)
+                {
+                    letter.Color = textColour;
+                }
+            }
+        }
+
         public void DisplayBoard()
         {
             Console.Clear();
