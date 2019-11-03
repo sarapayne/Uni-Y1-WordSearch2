@@ -121,7 +121,7 @@ namespace WordSearch
         {
             bool wordFound = false;
             word = "";
-            List<Letter> startCellContents = board.BoardArray[startRowIndex, endColIndex];
+            List<Letter> startCellContents = board.BoardArray[startRowIndex, startCollumIndex];
             List<Letter> endCellContents = board.BoardArray[endRowIndex, endColIndex];
             for (int startListIndex = 0; startListIndex < startCellContents.Count; startListIndex++)
             {
