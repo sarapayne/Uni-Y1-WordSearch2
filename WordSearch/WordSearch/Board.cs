@@ -35,7 +35,7 @@ namespace WordSearch
                     }
                     Console.ForegroundColor = charColour;
                     string cellstring = cellContents[0].Character;
-                    Console.Write(cellstring.PadRight(5));
+                    Console.Write(cellstring.PadRight(4));
                 }
                 Console.WriteLine();
                 Console.WriteLine(" ");
