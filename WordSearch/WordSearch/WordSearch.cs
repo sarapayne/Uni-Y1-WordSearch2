@@ -44,20 +44,32 @@ namespace WordSearch
             string menuChoice = Console.ReadLine();
             menuChoice = Validation.InitialMenu(menuChoice);
             LoadGameChoice(menuChoice);
-            //wordSearch = new Board(userInput);
+            board = new Board(menuChoice);
         }
 
         private void LoadGameChoice(string menuChoice)
         {
-
+            GameFile gameToLoad = new GameFile();
             if (menuChoice == "1")
             {
-                gameIndex = -1; //one lower than any of the possible indexes found in the files list       
+                bool gameFile1Valid = storage.GameFiles[0].Validated;
+                if (gameFile1Valid)
+                {   //we know this is the same as file index0, so if its valid save some leg work. 
+                    gameToLoad = storage.
+                }
+                else
+                {
+                    //add code here to generate default game file. 
+                }
+                
+                gameIndex = -1; //one lower than any of the possible indexes found in the files list
+                
             }
             else if (menuChoice == "2")
             {
                 gameIndex = FileChoiceMenu();
             }
+
         }
 
         private int FileChoiceMenu()
