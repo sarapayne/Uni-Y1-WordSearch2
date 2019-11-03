@@ -53,8 +53,7 @@ namespace WordSearch
             userInput = Console.ReadLine();
             int endColIndex = validation.InGameMenu(userInput, board.BoardArray.GetLength(1) - 2);
             endColIndex++; //actual index will be one higher than the user enters.
-            //check to see if this is a word
-            //bool wordIsFound = CheckIfWordFound(startRowIndex, startColIndex, endRowIndex, endColIndex, out string wordFound);
+            bool wordIsFound = CheckIfWordFound(startRowIndex, startColIndex, endRowIndex, endColIndex, out string wordFound);
             //add code here to clear last unfound word if it exists!
             /*
             if (wordIsFound)
@@ -71,6 +70,33 @@ namespace WordSearch
             }
             */
 
+        }
+
+        private bool CheckIfWordFound(int startRowIndex, int startCollumIndex, int endRowIndex, int endColIndex, out string word)
+        {
+            bool wordFound = false;
+            word = "";
+            List<Letter> startCellContents = board.BoardArray[startRowIndex, endColIndex];
+            List<Letter> endCellContents = board.BoardArray[endRowIndex, endColIndex];
+            for (int startListIndex = 0; startListIndex < startCellContents.Count; startListIndex++)
+            {
+                for (int endListIndex = 0; endListIndex < endCellContents.Count; endListIndex++)
+                {
+                    string startWord = startCellContents[startListIndex].Word;
+                    bool isStartWord = startCellContents[startListIndex].WordStart;
+                    string endWord = endCellContents[endListIndex].Word;
+                    bool isEndWord = endCellContents[endListIndex].WordEnd;
+                    if (isStartWord && isEndWord)
+                    {
+                        if (startWord == endWord)
+                        {
+                            word = startWord;
+                            wordFound =  true;
+                        }
+                    }
+                }
+            }
+            return wordFound;
         }
 
         public static void AddWordToGameWordsList(Word word)
