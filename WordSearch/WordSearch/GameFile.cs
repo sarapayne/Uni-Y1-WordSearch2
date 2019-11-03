@@ -10,6 +10,7 @@ namespace WordSearch
         private string[] fileContents;
         private bool validated;
         private List<Word> words;
+        private string rejectReason;
 
         public string Name
         {
@@ -33,6 +34,12 @@ namespace WordSearch
         {
             get { return this.words; }
             set { this.words = value; }
+        }
+
+        public string RejectReason
+        {
+            get { return this.rejectReason; }
+            set { this.rejectReason = value; }
         }
     }
 }

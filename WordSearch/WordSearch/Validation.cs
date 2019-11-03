@@ -25,9 +25,10 @@ namespace WordSearch
             return input;
         }
 
-        public static bool GameFile(string[] fileContents, out List<Word> wordsOut)
+        public static bool GameFile(string[] fileContents, out List<Word> wordsOut, out string rejectReason)
         {
             words = new List<Word>();
+            string fileRejectReason = "";
             string[] lineSegments;
             bool fileOk = true; //set to true then if it changes to false at any time break the loop
             int lineIndex = 0;
@@ -38,17 +39,35 @@ namespace WordSearch
                     lineSegments = fileContents[lineIndex].Split(",");
                     if (lineSegments.Length != 3)
                     {
+                        fileRejectReason = "1st Line or later does not contain 3 elements as a CSV";
                         fileOk = false; //drop strait out of the while loop
                     }
                     bool isIntRows = int.TryParse(lineSegments[0], out rowIndexes);
                     bool isIntCollums = int.TryParse(lineSegments[1], out collumIndexes);
                     bool isIntWords = int.TryParse(lineSegments[2], out numberOfWords);
-                    if (!(isIntCollums && isIntRows && isIntWords && (fileContents.Length == (numberOfWords + 1))))
+                    if(rowIndexes < 1)
+                    {   //reversed row/collum names for user perspective. 
+                        fileRejectReason = "Board has no collums";
+                        fileOk = false;
+                    }
+                    if (collumIndexes < 1 )
+                    {   //reversed row/collum names for user perspective.
+                        fileRejectReason = "Board has no rows";
+                        fileOk = false;
+                    }
+                    if (numberOfWords <1 )
                     {
+                        fileRejectReason = "Board has no words";
+                        fileOk = false;
+                    }
+                    if (!(isIntCollums && isIntRows && isIntWords))
+                    {
+                        fileRejectReason = "Board size integers are not integers in the file";
                         fileOk = false;
                     }
                     if (fileContents.Length != (numberOfWords + 1))
                     {
+                        fileRejectReason = "Number of words reported does not match the number of lines in the file";
                         fileOk = false;
                     }
                     validationArray = new List<Letter>[rowIndexes+1, collumIndexes+1];
@@ -56,82 +75,130 @@ namespace WordSearch
                 else
                 {
                     lineSegments = fileContents[lineIndex].Split(",");
-                    bool isIntRow = int.TryParse(lineSegments[1], out rowIndex);
-                    bool isIntCol = int.TryParse(lineSegments[2], out collumIndex);
-                    rowIndex++;//add 1 to row and collum indexes to allow for formatting rows and collums
-                    collumIndex++; //add 1 to row and collum indexes to allow for formatting rows and collums
-                    if (!(lineSegments.Length == 4 && isIntRow && isIntCol))
+                    if (lineSegments.Length == 4)
                     {
-                        fileOk = false;
-                    }
-                    else if (lineSegments[3] == "left")
-                    {
-                        if (rowIndex - lineSegments[0].Length < 0)
+                        bool isIntRow = int.TryParse(lineSegments[1], out rowIndex);
+                        bool isIntCol = int.TryParse(lineSegments[2], out collumIndex);
+                        int numIndexesToCheck = (lineSegments[0].Length) - 1;//remove one as we are already at first index. 
+                        rowIndex++;//add 1 to row and collum indexes to allow for formatting rows and collums
+                        collumIndex++; //add 1 to row and collum indexes to allow for formatting rows and collums
+                        if (!(isIntRow && isIntCol))
                         {
+                            fileRejectReason = "Row or Collum provided is not an integer";
                             fileOk = false;
+                            break;
                         }
-                    }
-                    else if (lineSegments[3] == "right")
-                    {
-                        if (rowIndex + lineSegments[0].Length >= rowIndexes)
+                        else if (lineSegments[3] == "left")
                         {
-                            fileOk = false;
+                            if (rowIndex - numIndexesToCheck < 0)
+                            {
+                                fileRejectReason = lineSegments[0] + " Index out of bounds left";
+                                fileOk = false;
+                                break;
+                            }
                         }
-                    }
-                    else if (lineSegments[3] == "up")
-                    {
-                        if (collumIndex - lineSegments[0].Length < 0)
+                        else if (lineSegments[3] == "right")
                         {
-                            fileOk = false;
+                            if (rowIndex + numIndexesToCheck > rowIndexes)
+                            {
+                                fileRejectReason = lineSegments[0] + " Index out of bounds right";
+                                fileOk = false;
+                                break;
+                            }
                         }
-                    }
-                    else if (lineSegments[3] == "down")
-                    {
-                        if (collumIndex + lineSegments[0].Length >= collumIndexes)
+                        else if (lineSegments[3] == "up")
                         {
-                            fileOk = false;
+                            if (collumIndex - numIndexesToCheck < 0)
+                            {
+                                fileRejectReason = lineSegments[0] + " Index out of bounds up";
+                                fileOk = false;
+                                break;
+                            }
                         }
-                    }
-                    else if (lineSegments[3] == "leftup")
-                    {
-                        if (rowIndex - lineSegments[0].Length < 0 || collumIndex - lineSegments[0].Length < 0)
+                        else if (lineSegments[3] == "down")
                         {
-                            fileOk = false;
+                            if (collumIndex + numIndexesToCheck > collumIndexes)
+                            {
+                                fileRejectReason = lineSegments[0] + " Index out of bounds down";
+                                fileOk = false;
+                                break;
+                            }
                         }
-                    }
-                    else if (lineSegments[3] == "rightup")
-                    {
-                        if (rowIndex + lineSegments[0].Length >= rowIndexes || collumIndex - lineSegments[0].Length < 0)
+                        else if (lineSegments[3] == "leftup")
                         {
-                            fileOk = false;
+                            if (rowIndex - numIndexesToCheck < 0 || collumIndex - lineSegments[0].Length < 0)
+                            {
+                                fileRejectReason = lineSegments[0] + " Index out of bounds leftup";
+                                fileOk = false;
+                                break;
+                            }
                         }
-                     }
-                    else if (lineSegments[3] == "leftdown")
-                    {
-                        if (rowIndex - lineSegments[0].Length < 0 || collumIndex + lineSegments[0].Length >= collumIndexes)
+                        else if (lineSegments[3] == "rightup")
                         {
-                            fileOk = false;
+                            if (rowIndex + numIndexesToCheck > rowIndexes || collumIndex - lineSegments[0].Length < 0)
+                            {
+                                fileRejectReason = lineSegments[0] + " Index out of bounds rightup";
+                                fileOk = false;
+                                break;
+                            }
                         }
-                    }
-                    else if (lineSegments[3] == "rightdown")
-                    {
-                        if (rowIndex + lineSegments[0].Length >= rowIndexes || collumIndex + lineSegments[0].Length >= collumIndexes)
+                        else if (lineSegments[3] == "leftdown")
                         {
+                            if (rowIndex - numIndexesToCheck < 0 || collumIndex + lineSegments[0].Length > collumIndexes)
+                            {
+                                fileRejectReason = lineSegments[0] + " Index out of bounds leftdown";
+                                fileOk = false;
+                                break;
+                            }
+                        }
+                        else if (lineSegments[3] == "rightdown")
+                        {
+                            if (rowIndex + numIndexesToCheck > rowIndexes || collumIndex + lineSegments[0].Length > collumIndexes)
+                            {
+                                fileRejectReason = lineSegments[0] + " Index out of bounds rightdown";
+                                fileOk = false;
+                                break;
+                            }
+                        }
+                        else
+                        { //if its none of the above there is a problem, file not ok
+                            fileRejectReason = "malformed direction";
                             fileOk = false;
+                            break;
                         }
                     }
                     else
-                    { //if its none of the above there is a problem, file not ok
+                    {
+                        fileRejectReason = "1 or more of the word lines does not have 4 elements as CSV";
                         fileOk = false;
+                        break;
+                    }
+                    if (!fileOk)
+                    {
+                        break;
                     }
                     List<Letter> wordObjects = GenerateWordObjects(rowIndex, collumIndex, lineSegments[0], lineSegments[3]);
-                    Word word = new Word(lineSegments[0], wordObjects, false);
-                    words.Add(word);
-                    fileOk = TestLettersOnBoard(wordObjects); //adds object AND returns the bool based on results in the method
+                    bool wordPlacementOk = TestLettersOnBoard(wordObjects, lineSegments[0], out string reject, out int rowReject, out int colReject); //adds object AND returns the bool based on results in the method
+                    if (wordPlacementOk)
+                    {
+                        Word word = new Word(lineSegments[0], wordObjects, false);
+                        words.Add(word);
+                    }
+                    else
+                    {
+                        fileRejectReason = "Crossing Words at (" + rowReject + "," + colReject + ") incompatible.";
+                        fileOk = false;
+                        break;
+                    }
+                    if (!fileOk)
+                    {
+                        break;
+                    }
                 }//close else not line 1
                 lineIndex++;
             }//close while file ok and line index is less than limit
             wordsOut = words;
+            rejectReason = fileRejectReason;
             return fileOk;
         }//close GameFile
 
@@ -175,7 +242,7 @@ namespace WordSearch
                 else if (direction == "up")
                 {
                     position.Row = firstRowIndex;
-                    position.Collum = firstRowIndex - charIndex;
+                    position.Collum = firstCollumIndex - charIndex;
                 }
                 else if (direction == "down")
                 {
@@ -184,8 +251,8 @@ namespace WordSearch
                 }
                 else if (direction == "leftup")
                 {
-                    position.Row = firstRowIndex - collumIndex;
-                    position.Collum = firstCollumIndex - collumIndex;
+                    position.Row = firstRowIndex - charIndex;
+                    position.Collum = firstCollumIndex - charIndex;
                 }
                 else if (direction == "rightup")
                 {
@@ -208,13 +275,15 @@ namespace WordSearch
             return wordObjects;
         }
 
-        private static bool TestLettersOnBoard(List<Letter> wordObjects)
+        private static bool TestLettersOnBoard(List<Letter> wordObjects, string wordName, out string reject, out int rowReject, out int colReject)
         {
+            string rejectWord = "";
+            int colRefused = 0;
+            int rowRefused = 0;
             bool completedSuccessfully = true;
             int wordIndex = 0;
             while (completedSuccessfully && wordIndex < wordObjects.Count)
             {
-
                 int rowIndex = wordObjects[wordIndex].Positon.Row;
                 int colIndex = wordObjects[wordIndex].Positon.Collum;
                 int rowIndexes = validationArray.GetLength(0);
@@ -232,6 +301,9 @@ namespace WordSearch
                     {
                         if (cellList[cellListIndex].Character != wordObjects[wordIndex].Character)
                         {
+                            rejectWord = wordName;
+                            rowRefused = rowIndex;
+                            colIndex = colRefused;
                             completedSuccessfully = false;
                         }
                     }
@@ -239,15 +311,19 @@ namespace WordSearch
                 }
                 wordIndex++;
             }
+            reject = rejectWord;
+            rowReject = rowRefused;
+            colReject = colRefused;
             return completedSuccessfully;
         }
 
-        public int CheckIntInRange(string input, int lowest, int highest)
+        public static int CheckIntInRange(string input, int lowest, int highest)
         {
             bool isInt = int.TryParse(input, out int number);
-            while (!isInt || number < lowest || number > highest)
+            bool valid = isInt && (number > lowest) && (number < highest) && Program.wordSearch.Storage.GameFiles[number-1].Validated;
+            while (!valid)
             {
-                Console.WriteLine("Sorry but your entry of: " + input + "was not valid, you must choose a integer number from " + lowest + "to" + highest);
+                Console.WriteLine("Sorry but your entry of: " + input + "was not valid, you must choose a integer number from " + lowest + "to" + highest + ". It must also be an availible game.");
                 input = Console.ReadLine();
                 isInt = int.TryParse(input, out number);
             }
@@ -265,3 +341,5 @@ namespace WordSearch
         }
     }
 }
+
+

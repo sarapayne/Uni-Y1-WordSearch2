@@ -17,6 +17,12 @@ namespace WordSearch
             PopulateGameFiles();
         }
 
+        public List<GameFile> GameFiles
+        {
+            get { return this.gameFiles; }
+            set { this.gameFiles = value; }
+        }
+
         private void PopulateGameFiles()
         {
             string[] files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.wrd");
@@ -25,8 +31,9 @@ namespace WordSearch
                 GameFile gameFile = new GameFile();
                 gameFile.Name = files[filesIndex];
                 gameFile.FileContents = File.ReadAllLines(files[filesIndex]);
-                gameFile.Validated = Validation.GameFile(gameFile.FileContents, out List<Word>words);
+                gameFile.Validated = Validation.GameFile(gameFile.FileContents, out List<Word>words, out string rejectReason);
                 gameFile.Words = words;
+                gameFile.RejectReason = rejectReason;
                 gameFiles.Add(gameFile);
             }
         }
