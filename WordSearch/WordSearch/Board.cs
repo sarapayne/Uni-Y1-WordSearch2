@@ -22,7 +22,7 @@ namespace WordSearch
             set { this.boardArray = value; }
         }
 
-        public void ClearLastUnfoundWordColours(Vector startIndex, Vector endIndex)
+        public void UpdateBoardArrayCellRange(Vector startIndex, Vector endIndex, ConsoleColor color)
         {
             int rowChange;
             int colChange;
@@ -47,16 +47,19 @@ namespace WordSearch
             }
             int row = startIndex.Row;
             int col = startIndex.Collum;
-            for (int hops = 0; hops < numOfHops; ++ hops)
+            for (int hops = 0; hops <= numOfHops; ++ hops)
             {
                 List<Letter> cellContents = boardArray[row, col];
                 foreach (Letter letter in cellContents)
                 {
                     if (letter.Color != ConsoleColor.Green)
                     {
-                        letter.Color = ConsoleColor.White;
+
+                        letter.Color = color;
                     }
                 }
+                row += rowChange;
+                col += colChange;
             }
         }
 

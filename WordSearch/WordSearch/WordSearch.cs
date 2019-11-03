@@ -55,8 +55,10 @@ namespace WordSearch
             userInput = Console.ReadLine();
             int endColIndex = validation.InGameMenu(userInput, board.BoardArray.GetLength(1) - 2);
             endColIndex++; //actual index will be one higher than the user enters.
+            Vector startCell = new Vector(startRowIndex, startColIndex);
+            Vector endCell = new Vector(endRowIndex, endColIndex);
             bool wordIsFound = CheckIfWordFound(startRowIndex, startColIndex, endRowIndex, endColIndex, out string wordFound);
-            board.ClearLastUnfoundWordColours(lastWrongStartIndex, lastWrongEndIndex);
+            board.UpdateBoardArrayCellRange(lastWrongStartIndex, lastWrongEndIndex, ConsoleColor.White);
             if (wordIsFound)
             {
                 UpdateStausInsideGameWordsList(wordFound);
@@ -66,12 +68,11 @@ namespace WordSearch
             }
             else
             {
-                //update here with correct start and finish points
-                board.UpdateBoardArray(startRowIndex, startColIndex, "", false, false);
-                lastWrongStartIndex.Row = startRowIndex;
-                lastWrongStartIndex.Collum = startColIndex;
-                lastWrongEndIndex.Row = endRowIndex;
-                lastWrongEndIndex.Collum = endColIndex;
+                Console.WriteLine("Sorry but that did not match any words in the list, please press a key to continue and try again");
+                Console.ReadKey();
+                board.UpdateBoardArrayCellRange(startCell, endCell, ConsoleColor.Red);
+                lastWrongStartIndex = startCell;
+                lastWrongEndIndex = endCell;
                 RefreshDisplay();
             }
         }
