@@ -25,7 +25,7 @@ namespace WordSearch
             return input;
         }
 
-        public static bool GameFile(string[] fileContents, out List<Word> wordsOut, out string rejectReason)
+        public static bool GameFile(string[] fileContents, out List<Word> wordsOut, out Vector boardDimensions, out string rejectReason)
         {
             words = new List<Word>();
             string fileRejectReason = "";
@@ -194,6 +194,7 @@ namespace WordSearch
                 lineIndex++;
             }//close while file ok and line index is less than limit
             wordsOut = words;
+            boardDimensions = new Vector(validationArray.GetLength(0), validationArray.GetLength(1));
             rejectReason = fileRejectReason;
             return fileOk;
         }//close GameFile

@@ -31,8 +31,9 @@ namespace WordSearch
                 GameFile gameFile = new GameFile();
                 gameFile.Name = files[filesIndex];
                 gameFile.FileContents = File.ReadAllLines(files[filesIndex]);
-                gameFile.Validated = Validation.GameFile(gameFile.FileContents, out List<Word>words, out string rejectReason);
+                gameFile.Validated = Validation.GameFile(gameFile.FileContents, out List<Word>words, out Vector boardDimensions, out string rejectReason);
                 gameFile.Words = words;
+                gameFile.BoardDimensions = boardDimensions;
                 gameFile.RejectReason = rejectReason;
                 gameFiles.Add(gameFile);
             }

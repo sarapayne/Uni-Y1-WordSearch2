@@ -8,6 +8,7 @@ namespace WordSearch
     {
         private string name;
         private string[] fileContents;
+        private Vector boardDimensions;
         private bool validated;
         private List<Word> words;
         private string rejectReason;
@@ -22,6 +23,12 @@ namespace WordSearch
         {
             get { return this.fileContents; }
             set { this.fileContents = value; }
+        }
+
+        public Vector BoardDimensions
+        {
+            get { return this.boardDimensions; }
+            set { this.boardDimensions = value; }
         }
 
         public bool Validated
