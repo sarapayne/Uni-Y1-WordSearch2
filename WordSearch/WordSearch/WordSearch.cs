@@ -8,7 +8,7 @@ namespace WordSearch
     {
         private Board board;
         private Validation validation;
-        private List<Word> wordsInCurrentGame;
+        private static List<Word> wordsInCurrentGame;
         private Storage storage;
         private int gameIndex;
 
@@ -21,6 +21,7 @@ namespace WordSearch
             validation = new Validation();
             storage = new Storage();
             InitialMenu();
+            gameIndex = new int();
             //PrintWordChoices();
             //InGameChoices();
         }
@@ -31,7 +32,7 @@ namespace WordSearch
             set { this.Storage = value; }
         }
 
-        private void InitialMenu()
+        public void InitialMenu()
         {
             wordsInCurrentGame = new List<Word>();
             Console.Clear();
@@ -48,6 +49,7 @@ namespace WordSearch
 
         private void LoadGameChoice(string menuChoice)
         {
+
             if (menuChoice == "1")
             {
                 gameIndex = -1; //one lower than any of the possible indexes found in the files list       
@@ -85,8 +87,16 @@ namespace WordSearch
             Console.ResetColor();
             Console.WriteLine("\n" +
                 "Enter a number from: 1 to " + storage.GameFiles.Count + " inclusive");
-            int userChoice = (Validation.CheckIntInRange(Console.ReadLine(), 1, storage.GameFiles.Count))-1;
+            int userChoice = (Validation.CheckIntInRange(Console.ReadLine(), 1, storage.GameFiles.Count));
+            bool validFile = storage.GameFiles[userChoice - 1].Validated;
+            if (!validFile)
+            {
+                Console.WriteLine("Sorry but the file choice you chose has an error, please press any key to return to the main menu then select a choice in white");
+                Console.ReadKey();
+                InitialMenu();
+            }
             return userChoice;
+
         }
     }
 }

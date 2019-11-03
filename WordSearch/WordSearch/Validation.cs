@@ -316,12 +316,20 @@ namespace WordSearch
         public static int CheckIntInRange(string input, int lowest, int highest)
         {
             bool isInt = int.TryParse(input, out int number);
-            bool valid = isInt && (number > lowest) && (number < highest) && Program.wordSearch.Storage.GameFiles[number-1].Validated;
+            bool valid = isInt && (number >= lowest) && (number <= highest);
             while (!valid)
             {
-                Console.WriteLine("Sorry but your entry of: " + input + "was not valid, you must choose a integer number from " + lowest + "to" + highest + ". It must also be an availible game.");
-                input = Console.ReadLine();
-                isInt = int.TryParse(input, out number);
+                if (!isInt)
+                {
+                    Console.WriteLine("Sorry but your entry of: " + input + "was not a whole number, please enter a valid file number");
+                }
+                if (!(number >= lowest && number <= highest))
+                {
+                    Console.WriteLine("Sorry but your entry of: " + input + "was not a file number in existence. Please choose from numbers between " + lowest + " and " + highest + " inclusive");
+                }
+                Console.WriteLine("Please Press any key to return to the menu choices");
+                Console.ReadKey();
+                Program.wordSearch.InitialMenu();
             }
             return number;
         }
