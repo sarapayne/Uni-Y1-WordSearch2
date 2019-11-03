@@ -55,10 +55,9 @@ namespace WordSearch
             endColIndex++; //actual index will be one higher than the user enters.
             bool wordIsFound = CheckIfWordFound(startRowIndex, startColIndex, endRowIndex, endColIndex, out string wordFound);
             //add code here to clear last unfound word if it exists!
-            /*
             if (wordIsFound)
             {
-                UpdateStausInsideWordsList(wordFound);
+                UpdateStausInsideGameWordsList(wordFound);
                 CheckIfAllWordsFound();
                 wordSearch.UpdateGameObjectsArray(startRowIndex, startColIndex, wordFound, true, false);
                 wordSearch.DisplayBoard();
@@ -68,8 +67,18 @@ namespace WordSearch
                 //update here with correct start and finish points
                 wordSearch.UpdateGameObjectsArray(startRowIndex, startColIndex, "", false, false);
             }
-            */
+        }
 
+        private void UpdateStausInsideGameWordsList(string wordFound)
+        {
+            foreach (Word word in wordsInCurrentGame)
+            {
+                if (word.Name == wordFound)
+                {
+                    word.Found = true;
+                    break;
+                }
+            }
         }
 
         private bool CheckIfWordFound(int startRowIndex, int startCollumIndex, int endRowIndex, int endColIndex, out string word)
