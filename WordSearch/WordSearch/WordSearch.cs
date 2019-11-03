@@ -69,6 +69,26 @@ namespace WordSearch
             }
         }
 
+        private void CheckIfAllWordsFound()
+        {
+            int wordsIndex = 0;
+            bool winnerFound = true;
+            while (winnerFound && wordsIndex < wordsInCurrentGame.Count)
+            {
+                if (!wordsInCurrentGame[wordsIndex].Found)
+                {
+                    winnerFound = false;
+                }
+                wordsIndex++;
+            }
+            if (winnerFound)
+            {
+                Console.WriteLine("Congratuations you have found all words in the current game. Press any key to return to the main menu.");
+                Console.ReadKey();
+                Program.Startup();
+            }
+        }
+
         private void UpdateStausInsideGameWordsList(string wordFound)
         {
             foreach (Word word in wordsInCurrentGame)
