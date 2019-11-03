@@ -61,8 +61,8 @@ namespace WordSearch
 
         public string Character
         {
-            get { return this.Character; }
-            set { this.Character = value; }
+            get { return this.character; }
+            set { this.character = value; }
         }
 
         public string Word

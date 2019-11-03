@@ -9,11 +9,12 @@ namespace WordSearch
         private string name;
         private string[] fileContents;
         private bool validated;
+        private List<Word> words;
 
         public string Name
         {
-            get { return this.Name; }
-            set { this.Name = value; }
+            get { return this.name; }
+            set { this.name = value; }
         }
 
         public string[] FileContents
@@ -26,6 +27,12 @@ namespace WordSearch
         {
             get { return this.validated; }
             set { this.validated = value; }
+        }
+
+        public List<Word> Words
+        {
+            get { return this.words; }
+            set { this.Words = value; }
         }
     }
 }

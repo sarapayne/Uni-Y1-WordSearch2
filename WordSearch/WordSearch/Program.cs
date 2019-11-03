@@ -8,6 +8,11 @@ namespace WordSearch
 
         static void Main(string[] args)
         {
+            Startup();
+        }
+
+        public static void Startup()
+        {
             wordSearch = new WordSearch();
         }
     }

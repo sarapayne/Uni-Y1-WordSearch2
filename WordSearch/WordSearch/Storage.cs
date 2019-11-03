@@ -7,39 +7,29 @@ namespace WordSearch
 {
     class Storage
     {
-        private string[] files;
-        private string[] fileContents;
+        
+        
         private string[] defaultGame; //default game list, same format as the loaded games files
+        private List<GameFile> gameFiles;
 
         public Storage()
         {
-            files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.wrd");
             defaultGame = new string[] { "9,5,2", "algorithm,0,1,right", "virus,5,3,left" };
+            gameFiles = new List<GameFile>();
+            PopulateGameFiles();
         }
 
-        public string[] Files
+        private void PopulateGameFiles()
         {
-            get { return this.files; }
-            set { this.files = value; }
-        }
-
-        public string[] FileContents
-        {
-            get { return this.fileContents; }
-            set { this.fileContents = value; }
-        }
-
-        public void LoadFile(int filesIndex)
-        {
-            if (filesIndex == -1)
+            string[] files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.wrd");
+            for (int filesIndex = 0; filesIndex < files.Length; filesIndex++)
             {
-                fileContents = defaultGame;
+                GameFile gameFile = new GameFile();
+                gameFile.Name = files[filesIndex];
+                gameFile.FileContents = File.ReadAllLines(files[filesIndex]);
+                gameFile.Validated = Validation.GameFile(gameFile.FileContents, out List<Word>words);
+                gameFile.Words = words;
             }
-            else
-            {
-                fileContents = File.ReadAllLines(files[filesIndex]);
-            }
-            Program.validation.GameFile(fileContents);
         }
     }
 }
