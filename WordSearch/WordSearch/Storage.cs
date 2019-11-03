@@ -7,8 +7,6 @@ namespace WordSearch
 {
     class Storage
     {
-        
-        
         private string[] defaultGame; //default game list, same format as the loaded games files
         private List<GameFile> gameFiles;
 
@@ -29,6 +27,7 @@ namespace WordSearch
                 gameFile.FileContents = File.ReadAllLines(files[filesIndex]);
                 gameFile.Validated = Validation.GameFile(gameFile.FileContents, out List<Word>words);
                 gameFile.Words = words;
+                gameFiles.Add(gameFile);
             }
         }
     }
