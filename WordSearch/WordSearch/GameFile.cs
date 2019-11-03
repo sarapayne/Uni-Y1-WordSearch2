@@ -32,7 +32,7 @@ namespace WordSearch
         public List<Word> Words
         {
             get { return this.words; }
-            set { this.Words = value; }
+            set { this.words = value; }
         }
     }
 }

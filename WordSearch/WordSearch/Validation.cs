@@ -29,112 +29,108 @@ namespace WordSearch
         {
             words = new List<Word>();
             string[] lineSegments;
-            bool fileOk = false; //set to true then if it changes to false at any time break the loop
-            //fix infinite while loop here!!!!
-            while (!fileOk)
+            bool fileOk = true; //set to true then if it changes to false at any time break the loop
+            int lineIndex = 0;
+            while (fileOk && lineIndex < fileContents.Length)
             {
-                for (int lineIndex = 0; lineIndex < fileContents.Length; lineIndex++)
+                if (lineIndex == 0)
                 {
-                    if (lineIndex == 0)
+                    lineSegments = fileContents[lineIndex].Split(",");
+                    if (lineSegments.Length != 3)
                     {
-                        lineSegments = fileContents[lineIndex].Split(",");
-                        if (lineSegments.Length != 3)
-                        {
-                            fileOk = false; //drop strait out of the while loop
-                        }
-                        bool isIntRows = int.TryParse(lineSegments[0], out rowIndexes);
-                        bool isIntCollums = int.TryParse(lineSegments[1], out collumIndexes);
-                        bool isIntWords = int.TryParse(lineSegments[2], out numberOfWords);
-                        if (!(isIntCollums && isIntRows && isIntWords && (fileContents.Length == (numberOfWords + 1))))
-                        {
-                            fileOk = false;
-                        }
-
-                        if (fileContents.Length != (numberOfWords + 1))
-                        {
-                            fileOk = false;
-                        }
-                        validationArray = new List<Letter>[rowIndexes+1, collumIndexes+1];
-                    }//close line inxex is 0
-                    else
-                    {
-                        lineSegments = fileContents[lineIndex].Split(",");
-                        bool isIntRow = int.TryParse(lineSegments[1], out rowIndex);
-                        bool isIntCol = int.TryParse(lineSegments[2], out collumIndex);
-                        rowIndex++;//add 1 to row and collum indexes to allow for formatting rows and collums
-                        collumIndex++; //add 1 to row and collum indexes to allow for formatting rows and collums
-                        if (!(lineSegments.Length == 4 && isIntRow && isIntCol))
-                        {
-                            fileOk = false;
-                        }
-                        else if (lineSegments[3] == "left")
-                        {
-                            if (rowIndex - lineSegments[0].Length < 0)
-                            {
-                                fileOk = false;
-                            }
-                        }
-                        else if (lineSegments[3] == "right")
-                        {
-                            if (rowIndex + lineSegments[0].Length >= rowIndexes)
-                            {
-                                fileOk = false;
-                            }
-                        }
-                        else if (lineSegments[3] == "up")
-                        {
-                            if (collumIndex - lineSegments[0].Length < 0)
-                            {
-                                fileOk = false;
-                            }
-                        }
-                        else if (lineSegments[3] == "down")
-                        {
-                            if (collumIndex + lineSegments[0].Length >= collumIndexes)
-                            {
-                                fileOk = false;
-                            }
-                        }
-                        else if (lineSegments[3] == "leftup")
-                        {
-                            if (rowIndex - lineSegments[0].Length < 0 || collumIndex - lineSegments[0].Length < 0)
-                            {
-                                fileOk = false;
-                            }
-                        }
-                        else if (lineSegments[3] == "rightup")
-                        {
-                            if (rowIndex + lineSegments[0].Length >= rowIndexes || collumIndex - lineSegments[0].Length < 0)
-                            {
-                                fileOk = false;
-                            }
-                        }
-                        else if (lineSegments[3] == "leftdown")
-                        {
-                            if (rowIndex - lineSegments[0].Length < 0 || collumIndex + lineSegments[0].Length >= collumIndexes)
-                            {
-                                fileOk = false;
-                            }
-                        }
-                        else if (lineSegments[3] == "rightdown")
-                        {
-                            if (rowIndex + lineSegments[0].Length >= rowIndexes || collumIndex + lineSegments[0].Length >= collumIndexes)
-                            {
-                                fileOk = false;
-                            }
-                        }
-                        else
-                        { //if its none of the above there is a problem, file not ok
-                            fileOk = false;
-                        }
-                        List<Letter> wordObjects = GenerateWordObjects(rowIndex, collumIndex, lineSegments[0], lineSegments[3]);
-                        Word word = new Word(lineSegments[0], wordObjects, false);
-                        words.Add(word);
-                        fileOk = TestLettersOnBoard(wordObjects); //adds object AND returns the bool based on results in the method
+                        fileOk = false; //drop strait out of the while loop
                     }
-                }
-                fileOk = true;
-            }//close while file ok
+                    bool isIntRows = int.TryParse(lineSegments[0], out rowIndexes);
+                    bool isIntCollums = int.TryParse(lineSegments[1], out collumIndexes);
+                    bool isIntWords = int.TryParse(lineSegments[2], out numberOfWords);
+                    if (!(isIntCollums && isIntRows && isIntWords && (fileContents.Length == (numberOfWords + 1))))
+                    {
+                        fileOk = false;
+                    }
+                    if (fileContents.Length != (numberOfWords + 1))
+                    {
+                        fileOk = false;
+                    }
+                    validationArray = new List<Letter>[rowIndexes+1, collumIndexes+1];
+                }//close line inxex is 0
+                else
+                {
+                    lineSegments = fileContents[lineIndex].Split(",");
+                    bool isIntRow = int.TryParse(lineSegments[1], out rowIndex);
+                    bool isIntCol = int.TryParse(lineSegments[2], out collumIndex);
+                    rowIndex++;//add 1 to row and collum indexes to allow for formatting rows and collums
+                    collumIndex++; //add 1 to row and collum indexes to allow for formatting rows and collums
+                    if (!(lineSegments.Length == 4 && isIntRow && isIntCol))
+                    {
+                        fileOk = false;
+                    }
+                    else if (lineSegments[3] == "left")
+                    {
+                        if (rowIndex - lineSegments[0].Length < 0)
+                        {
+                            fileOk = false;
+                        }
+                    }
+                    else if (lineSegments[3] == "right")
+                    {
+                        if (rowIndex + lineSegments[0].Length >= rowIndexes)
+                        {
+                            fileOk = false;
+                        }
+                    }
+                    else if (lineSegments[3] == "up")
+                    {
+                        if (collumIndex - lineSegments[0].Length < 0)
+                        {
+                            fileOk = false;
+                        }
+                    }
+                    else if (lineSegments[3] == "down")
+                    {
+                        if (collumIndex + lineSegments[0].Length >= collumIndexes)
+                        {
+                            fileOk = false;
+                        }
+                    }
+                    else if (lineSegments[3] == "leftup")
+                    {
+                        if (rowIndex - lineSegments[0].Length < 0 || collumIndex - lineSegments[0].Length < 0)
+                        {
+                            fileOk = false;
+                        }
+                    }
+                    else if (lineSegments[3] == "rightup")
+                    {
+                        if (rowIndex + lineSegments[0].Length >= rowIndexes || collumIndex - lineSegments[0].Length < 0)
+                        {
+                            fileOk = false;
+                        }
+                     }
+                    else if (lineSegments[3] == "leftdown")
+                    {
+                        if (rowIndex - lineSegments[0].Length < 0 || collumIndex + lineSegments[0].Length >= collumIndexes)
+                        {
+                            fileOk = false;
+                        }
+                    }
+                    else if (lineSegments[3] == "rightdown")
+                    {
+                        if (rowIndex + lineSegments[0].Length >= rowIndexes || collumIndex + lineSegments[0].Length >= collumIndexes)
+                        {
+                            fileOk = false;
+                        }
+                    }
+                    else
+                    { //if its none of the above there is a problem, file not ok
+                        fileOk = false;
+                    }
+                    List<Letter> wordObjects = GenerateWordObjects(rowIndex, collumIndex, lineSegments[0], lineSegments[3]);
+                    Word word = new Word(lineSegments[0], wordObjects, false);
+                    words.Add(word);
+                    fileOk = TestLettersOnBoard(wordObjects); //adds object AND returns the bool based on results in the method
+                }//close else not line 1
+                lineIndex++;
+            }//close while file ok and line index is less than limit
             wordsOut = words;
             return fileOk;
         }//close GameFile
@@ -215,33 +211,33 @@ namespace WordSearch
         private static bool TestLettersOnBoard(List<Letter> wordObjects)
         {
             bool completedSuccessfully = true;
-            while (completedSuccessfully)
+            int wordIndex = 0;
+            while (completedSuccessfully && wordIndex < wordObjects.Count)
             {
-                foreach (Letter letter in wordObjects)
+
+                int rowIndex = wordObjects[wordIndex].Positon.Row;
+                int colIndex = wordObjects[wordIndex].Positon.Collum;
+                int rowIndexes = validationArray.GetLength(0);
+                int colIndexes = validationArray.GetLength(1);
+                if (validationArray[rowIndex, colIndex] == null)
                 {
-                    int rowIndex = letter.Positon.Row;
-                    int colIndex = letter.Positon.Collum;
-                    int rowIndexes = validationArray.GetLength(0);
-                    int colIndexes = validationArray.GetLength(1);
-                    if (validationArray[rowIndex, colIndex] == null)
-                    {
-                        List<Letter> cellList = new List<Letter>();
-                        cellList.Add(letter);
-                        validationArray[letter.Positon.Row, letter.Positon.Collum] = cellList;
-                    }
-                    else
-                    {
-                        List<Letter> cellList = validationArray[letter.Positon.Row, letter.Positon.Collum];
-                        for (int cellListIndex = 0; cellListIndex < cellList.Count; cellListIndex++)
-                        {
-                            if (cellList[cellListIndex].Character != letter.Character)
-                            {
-                                completedSuccessfully = false;
-                            }
-                        }
-                        cellList.Add(letter);
-                    }
+                    List<Letter> cellList = new List<Letter>();
+                    cellList.Add(wordObjects[wordIndex]);
+                    validationArray[wordObjects[wordIndex].Positon.Row, wordObjects[wordIndex].Positon.Collum] = cellList;
                 }
+                else
+                {
+                    List<Letter> cellList = validationArray[wordObjects[wordIndex].Positon.Row, wordObjects[wordIndex].Positon.Collum];
+                    for (int cellListIndex = 0; cellListIndex < cellList.Count; cellListIndex++)
+                    {
+                        if (cellList[cellListIndex].Character != wordObjects[wordIndex].Character)
+                        {
+                            completedSuccessfully = false;
+                        }
+                    }
+                    cellList.Add(wordObjects[wordIndex]);
+                }
+                wordIndex++;
             }
             return completedSuccessfully;
         }
