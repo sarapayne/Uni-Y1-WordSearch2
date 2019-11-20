@@ -40,7 +40,14 @@ namespace WordSearch
             {
                 GameFile gameFile = new GameFile();
                 gameFile.Name = files[filesIndex];
-                gameFile.FileContents = File.ReadAllLines(files[filesIndex]);
+                try
+                {
+                    gameFile.FileContents = File.ReadAllLines(files[filesIndex]);
+                }
+                catch
+                {
+                    gameFile.FileContents = new string[]{""};
+                }
                 gameFile.Validated = Validation.GameFile(gameFile.FileContents, out words, out boardDimensions, out rejectReason);
                 gameFile.Words = words;
                 gameFile.BoardDimensions = boardDimensions;

@@ -31,6 +31,13 @@ namespace WordSearch
             string fileRejectReason = "";
             string[] lineSegments;
             bool fileOk = true; //set to true then if it changes to false at any time break the loop
+            bool isIntRows;
+            bool isIntCollums;
+            bool isIntWords;
+            bool matchingFileType;
+            int rowIndexes = 0; ;
+            int collumIndexes = 0;
+            int numberOfWords = 0;
             int lineIndex = 0;
             while (fileOk && lineIndex < fileContents.Length)
             {
@@ -42,9 +49,20 @@ namespace WordSearch
                         fileRejectReason = "1st Line or later does not contain 3 elements as a CSV";
                         fileOk = false; //drop strait out of the while loop
                     }
-                    bool isIntRows = int.TryParse(lineSegments[0], out rowIndexes);
-                    bool isIntCollums = int.TryParse(lineSegments[1], out collumIndexes);
-                    bool isIntWords = int.TryParse(lineSegments[2], out numberOfWords);
+                    try
+                    {
+                        isIntRows = int.TryParse(lineSegments[0], out rowIndexes);
+                        isIntCollums = int.TryParse(lineSegments[1], out collumIndexes);
+                        isIntWords = int.TryParse(lineSegments[2], out numberOfWords);
+                        matchingFileType = true;
+                    }
+                    catch
+                    {
+                        matchingFileType = false;
+                        isIntRows = false;
+                        isIntCollums = false;
+                        isIntWords = false;
+                    }
                     if(rowIndexes < 1)
                     {   //reversed row/collum names for user perspective. 
                         fileRejectReason = "Board has no collums";
@@ -68,6 +86,11 @@ namespace WordSearch
                     if (fileContents.Length != (numberOfWords + 1))
                     {
                         fileRejectReason = "Number of words reported does not match the number of lines in the file";
+                        fileOk = false;
+                    }
+                    if (!matchingFileType)
+                    {
+                        fileRejectReason = "File is not a text file. This file is likely a renamed bin or library file.";
                         fileOk = false;
                     }
                     validationArray = new List<Letter>[rowIndexes+1, collumIndexes+1];
