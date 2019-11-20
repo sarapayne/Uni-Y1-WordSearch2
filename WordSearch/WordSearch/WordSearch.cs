@@ -237,7 +237,8 @@ namespace WordSearch
             }
             Console.ResetColor();
             Console.WriteLine("\n" +
-                "Enter a number from: 1 to " + storage.GameFiles.Count + " inclusive");
+                "Enter a number from: 1 to " + storage.GameFiles.Count + " inclusive \n" +
+                "If there are no valid game files please select any game number and you will be returned to the main menu" );
             int userChoice = (Validation.CheckIntInRange(Console.ReadLine(), 1, storage.GameFiles.Count));
             bool validFile = storage.GameFiles[userChoice - 1].Validated;
             if (!validFile)
