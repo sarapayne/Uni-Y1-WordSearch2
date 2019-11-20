@@ -1,5 +1,4 @@
 F:\source\Personal\WordSearch2\WordSearch\WordSearch\obj\Debug\netcoreapp2.1\WordSearch.csprojAssemblyReference.cache
-F:\source\Personal\WordSearch2\WordSearch\WordSearch\obj\Debug\netcoreapp2.1\WordSearch.csproj.CoreCompileInputs.cache
 F:\source\Personal\WordSearch2\WordSearch\WordSearch\obj\Debug\netcoreapp2.1\WordSearch.AssemblyInfoInputs.cache
 F:\source\Personal\WordSearch2\WordSearch\WordSearch\obj\Debug\netcoreapp2.1\WordSearch.AssemblyInfo.cs
 F:\source\Personal\WordSearch2\WordSearch\WordSearch\bin\Debug\netcoreapp2.1\WordSearch.deps.json

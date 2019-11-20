@@ -174,13 +174,23 @@ namespace WordSearch
         {
             wordsInCurrentGame = new List<Word>();
             Console.Clear();
-            Console.WriteLine("Select An Option \n" +
+            string menuChoice;
+            if (storage.GameFiles.Count > 0)
+            {
+                Console.WriteLine("Select An Option \n" +
                 "1. Use default wordsearch \n" +
                 "2. Load wordsearch from file \n" +
                 "\n" +
                 "Enter a number from 1 to 2 inclusive");
-            string menuChoice = Console.ReadLine();
-            menuChoice = Validation.InitialMenu(menuChoice);
+                menuChoice = Console.ReadLine();
+                menuChoice = Validation.InitialMenu(menuChoice);
+            }
+            else
+            {
+                Console.WriteLine("Sorry there are no loadable game files found. Press any key to load the default game.");
+                Console.ReadKey();
+                menuChoice = "1";
+            }
             GameFile gameFileToLoad = LoadGameChoice(menuChoice);
             wordsInCurrentGame = new List<Word>();
             board = new Board(gameFileToLoad);
@@ -191,11 +201,7 @@ namespace WordSearch
             GameFile gameToLoad = new GameFile();
             if (menuChoice == "1")
             {
-                bool gameFile1Valid = storage.GameFiles[0].Validated;
-                if (gameFile1Valid)
-                {   //we know this is the same as file index0, so if its valid save some leg work. 
                     gameToLoad = storage.DefaultGameFile;
-                } 
             }
             else if (menuChoice == "2")
             {
