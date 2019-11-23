@@ -120,6 +120,9 @@ namespace WordSearch
             }
         }
 
+        /// <summary>
+        /// Refreshes the console display
+        /// </summary>
         private void RefreshDisplay()
         {
             Console.Clear();
