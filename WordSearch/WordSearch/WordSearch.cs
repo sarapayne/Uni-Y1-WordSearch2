@@ -220,6 +220,9 @@ namespace WordSearch
             wordsInCurrentGame.Add(newWord);
         }
 
+        /// <summary>
+        /// loops through each word object in the current game, printing it to the terminal with the colour depending on whether the word has been found or not. 
+        /// </summary>
         private void DisplayWordChoices()
         {
             Console.ForegroundColor = ConsoleColor.White;
