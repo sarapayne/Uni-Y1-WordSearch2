@@ -357,6 +357,12 @@ namespace WordSearch
             return number;
         }
 
+        /// <summary>
+        /// Takes the user input, then makes sure it is valid by ensuring it is an in range integer. If it is not then the user is prompted to try again. 
+        /// </summary>
+        /// <param name="userInput">This is what the user typed into terminal</param>
+        /// <param name="maxIndex">The highest choice availible.</param>
+        /// <returns>any valid inputput supplied by the user. </returns>
         public int InGameMenu(string userInput, int maxIndex)
         {
             bool isInt = int.TryParse(userInput, out int number);
