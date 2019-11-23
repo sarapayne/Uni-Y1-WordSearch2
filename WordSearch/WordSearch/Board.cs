@@ -297,6 +297,12 @@ namespace WordSearch
             }
         }
 
+        /// <summary>
+        /// Takes the supplied gameFile object and loops through each word it contains
+        /// Each of those words are in turn looped through, 
+        /// Letter objects are added to the board array lists in their appropriate positions. 
+        /// </summary>
+        /// <param name="gameFile">game file object to process</param>
         private void AddWordsToBoardArray(GameFile gameFile)
         {
             List<Letter> cellLetters;
