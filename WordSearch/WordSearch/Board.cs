@@ -29,6 +29,15 @@ namespace WordSearch
             set { this.boardArray = value; }
         }
 
+        /// <summary>
+        /// Loops through each cell of the boardArray contained within the parameters start and end index. 
+        /// Then conditionally it will update the console colour property of the letter objects found.
+        /// Objects shown in green (already found) will not be changed. 
+        /// letter objects will all be contained in a list (each cell has a list of letter objects).
+        /// </summary>
+        /// <param name="startIndex">Row/Collum vector Position of the first letter</param>
+        /// <param name="endIndex">Row/Collum vector Position of the last letter</param>
+        /// <param name="color">console colour parameter to apply to the letter objects.</param>
         public void UpdateBoardArrayCellRange(Vector startIndex, Vector endIndex, ConsoleColor color)
         {
             int rowChange;
