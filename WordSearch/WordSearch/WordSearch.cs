@@ -154,6 +154,10 @@ namespace WordSearch
             }
         }
 
+        /// <summary>
+        /// Takes the input string word found, then loops through all the word objects in the current game untill it finds one with a matching paremeter. When found it adjusts the bool of that object to show found true and exits. 
+        /// </summary>
+        /// <param name="wordFound">string showing the word object parameter we are looking for. </param>
         private void UpdateStausInsideGameWordsList(string wordFound)
         {
             foreach (Word word in wordsInCurrentGame)
