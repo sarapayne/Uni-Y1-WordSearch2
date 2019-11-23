@@ -413,20 +413,6 @@ namespace WordSearch
             return number;
         }
 
-        /// <summary>
-        /// takes the provided user input and validates it against the availible options. If the choice is not valid it will ask the user to try again. 
-        /// </summary>
-        /// <param name="userInput">This is what the user typed into the termrminal</param>
-        /// <returns>any user input which is found to be valid. </returns>
-        //public static string InitialMenuChoice(string userInput)
-        //{
-        //    while (!(userInput == "1" || userInput =="2"))
-        //    {
-        //        Console.WriteLine("Sorry but your entry of " + userInput + " is invalid, valid choices are 1 or 2. Please try again.");
-        //        userInput = Console.ReadLine();
-        //    }
-        //    return userInput;
-        //}
     }
 }
 
