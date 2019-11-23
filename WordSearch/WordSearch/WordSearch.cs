@@ -264,6 +264,11 @@ namespace WordSearch
             return gameToLoad;
         }
 
+        /// <summary>
+        /// Displays a list of availible game files, and colours them according to whether they can be loaded or not. If they can not be loaded it gives a reason. 
+        /// Each user entry is validated, when a valid entry is given that game file index will be returned 
+        /// </summary>
+        /// <returns>The index of the gameFile to load in the gameFiles list. </returns>
         private int FileChoiceMenu()
         {
             Console.Clear();
