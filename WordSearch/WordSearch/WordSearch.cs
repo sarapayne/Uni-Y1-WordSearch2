@@ -209,6 +209,10 @@ namespace WordSearch
             return wordFound;
         }
 
+        /// <summary>
+        /// Takes the word object supplied and addes it to the list of current game words. 
+        /// </summary>
+        /// <param name="word">word object</param>
         public static void AddWordToGameWordsList(Word word)
         {
             Word newWord = new Word();
