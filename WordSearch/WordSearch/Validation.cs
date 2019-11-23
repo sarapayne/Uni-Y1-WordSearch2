@@ -336,6 +336,13 @@ namespace WordSearch
             return completedSuccessfully;
         }
 
+        /// <summary>
+        /// Take a string input form the user, ensures it is a valid integer and that it is within the desired range. If it is returns the integer value. 
+        /// </summary>
+        /// <param name="input">String user puts into the terminal</param>
+        /// <param name="lowest">lowest allowed value</param>
+        /// <param name="highest">highest allowed value</param>
+        /// <returns>The integer value the user entered as a string.</returns>
         public static int CheckIntInRange(string input, int lowest, int highest)
         {
             bool isInt = int.TryParse(input, out int number);
