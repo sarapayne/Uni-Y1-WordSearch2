@@ -169,7 +169,19 @@ namespace WordSearch
                 }
             }
         }
-
+        
+        /// <summary>
+        /// Takes the start and end positions supplied. Then checks all letter objects found within the lists of those array cells.
+        /// If there are objects in the start and end cells which both match with the "word" property it then 
+        /// also checks to make sure that the start position object has a WordStart property, the same for the WordEnd property.
+        /// if all these conditions are met it returns true, else false. 
+        /// </summary>
+        /// <param name="startRowIndex">int of the starting row index in the board array</param>
+        /// <param name="startCollumIndex">int of the starting collum index in the board array</param>
+        /// <param name="endRowIndex">int of the ending row index in the board array</param>
+        /// <param name="endColIndex">int of the ending collum index in the board array</param>
+        /// <param name="word">string to validate letter objects against.</param>
+        /// <returns></returns>
         private bool CheckIfWordFound(int startRowIndex, int startCollumIndex, int endRowIndex, int endColIndex, out string word)
         {
             bool wordFound = false;
