@@ -225,6 +225,10 @@ namespace WordSearch
             }
         }
 
+        /// <summary>
+        /// Loops through the boardArray filling any empty lists contained with letter objects.
+        /// Row and Collum headers are filled appropriately, then random letter objects genrated for the res of the empty lists. 
+        /// </summary>
         private void FillEmptyArrayCells()
         {
             Random random = new Random();
