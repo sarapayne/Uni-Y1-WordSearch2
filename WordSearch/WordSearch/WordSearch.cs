@@ -75,6 +75,9 @@ namespace WordSearch
             board = new Board(gameFileToLoad);
         }
 
+        /// <summary>
+        /// Takes the start and end positions of each word the user wishes to try. Validates each entry to make sure it is valid. Then tests to see if a word is found and/or the game has been won. Then updates the board accordingly. 
+        /// </summary>
         private void InGameMenu()
         {
             //from user prespective rowIndexs are actually collum numbers and collumIndex are actually row numbers
