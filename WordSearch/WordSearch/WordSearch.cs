@@ -16,6 +16,9 @@ namespace WordSearch
         private Vector lastWrongStartIndex;
         private Vector lastWrongEndIndex;
         
+        /// <summary>
+        /// Creates the objects required for everything else to function. Then launches the Initil menu, and subsequent menus as required.
+        /// </summary>
         public WordSearch()
         {
             lastWrongStartIndex = new Vector();
@@ -33,6 +36,32 @@ namespace WordSearch
         {
             get { return this.Storage; }
             set { this.Storage = value; }
+        }
+
+        public void InitialMenu()
+        {
+            wordsInCurrentGame = new List<Word>();
+            Console.Clear();
+            string menuChoice;
+            if (storage.GameFiles.Count > 0)
+            {
+                Console.WriteLine("Select An Option \n" +
+                "1. Use default wordsearch \n" +
+                "2. Load wordsearch from file \n" +
+                "\n" +
+                "Enter a number from 1 to 2 inclusive");
+                menuChoice = Console.ReadLine();
+                menuChoice = Validation.InitialMenu(menuChoice);
+            }
+            else
+            {
+                Console.WriteLine("Sorry there are no loadable game files found. Press any key to load the default game.");
+                Console.ReadKey();
+                menuChoice = "1";
+            }
+            GameFile gameFileToLoad = LoadGameChoice(menuChoice);
+            wordsInCurrentGame = new List<Word>();
+            board = new Board(gameFileToLoad);
         }
 
         private void InGameMenu()
@@ -170,31 +199,7 @@ namespace WordSearch
             Console.ResetColor();
         }
 
-        public void InitialMenu()
-        {
-            wordsInCurrentGame = new List<Word>();
-            Console.Clear();
-            string menuChoice;
-            if (storage.GameFiles.Count > 0)
-            {
-                Console.WriteLine("Select An Option \n" +
-                "1. Use default wordsearch \n" +
-                "2. Load wordsearch from file \n" +
-                "\n" +
-                "Enter a number from 1 to 2 inclusive");
-                menuChoice = Console.ReadLine();
-                menuChoice = Validation.InitialMenu(menuChoice);
-            }
-            else
-            {
-                Console.WriteLine("Sorry there are no loadable game files found. Press any key to load the default game.");
-                Console.ReadKey();
-                menuChoice = "1";
-            }
-            GameFile gameFileToLoad = LoadGameChoice(menuChoice);
-            wordsInCurrentGame = new List<Word>();
-            board = new Board(gameFileToLoad);
-        }
+        
 
         private GameFile LoadGameChoice(string menuChoice)
         {
