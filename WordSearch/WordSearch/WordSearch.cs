@@ -131,6 +131,9 @@ namespace WordSearch
             InGameMenu();
         }
 
+        /// <summary>
+        /// Checks to see if all words have been found, if they have it says congrats and restarts the game. 
+        /// </summary>
         private void CheckIfAllWordsFound()
         {
             int wordsIndex = 0;
