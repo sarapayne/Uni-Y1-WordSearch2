@@ -243,7 +243,12 @@ namespace WordSearch
         }
 
         
-
+        /// <summary>
+        /// Takes the user input (already validated), then applies the appropriate gameFile index for it and returns that value. 
+        /// Loaded game file indexes are collected via the FileChoiceMenu method. 
+        /// </summary>
+        /// <param name="menuChoice"></param>
+        /// <returns>The index of the gameFile object to load from the gameFiles list.</returns>
         private GameFile LoadGameChoice(string menuChoice)
         {
             GameFile gameToLoad = new GameFile();
