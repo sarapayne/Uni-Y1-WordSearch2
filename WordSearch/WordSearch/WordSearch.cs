@@ -34,22 +34,28 @@ namespace WordSearch
             set { this.Storage = value; }
         }
 
+        /// <summary>
+        /// Creates the objects required for the program to function. 
+        /// </summary>
         private void Initilisation()
         {
-            lastWrongStartIndex = new Vector();
-            lastWrongEndIndex = new Vector();
-            validation = new Validation();
-            wordsInCurrentGame = new List<Word>();
-            storage = new Storage();
+            lastWrongStartIndex = new Vector(); //used during display and clearing of incorrect guesses
+            lastWrongEndIndex = new Vector(); //used during display and clearing of incorrect guesses
+            validation = new Validation(); //used to validate user input as well as file contents. 
+            wordsInCurrentGame = new List<Word>(); 
+            storage = new Storage();//loads the stored games into the program. 
         }
 
+        /// <summary>
+        /// clears any existing words then delivers the inital menu to the user. When the choices are made it then generates a new board object based on these choices. 
+        /// </summary>
         public void InitialMenu()
         {
             wordsInCurrentGame = new List<Word>();
             Console.Clear();
             string menuChoice;
             if (storage.GameFiles.Count > 0)
-            {
+            {   //There are game files in the progams directory. 
                 Console.WriteLine("Select An Option \n" +
                 "1. Use default wordsearch \n" +
                 "2. Load wordsearch from file \n" +
@@ -59,7 +65,7 @@ namespace WordSearch
                 menuChoice = Validation.InitialMenu(menuChoice);
             }
             else
-            {
+            {   
                 Console.WriteLine("Sorry there are no loadable game files found. Press any key to load the default game.");
                 Console.ReadKey();
                 menuChoice = "1";
