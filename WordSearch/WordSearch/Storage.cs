@@ -11,6 +11,9 @@ namespace WordSearch
         private GameFile defaultGameFile;
         private List<GameFile> gameFiles;
 
+        /// <summary>
+        /// Sets up the default game file and list object for the loaded game files, then loads the game files into the program. Validating each one as it loads. 
+        /// </summary>
         public Storage()
         {
             defaultGame = new string[] { "9,5,2", "algorithm,0,1,right", "virus,5,4,left" };
@@ -30,6 +33,9 @@ namespace WordSearch
             set { this.defaultGameFile = value; }
         }
 
+        /// <summary>
+        /// Loads the game files into memory validating them as it goes. 
+        /// </summary>
         private void PopulateGameFiles()
         {
             List<Word> words = new List<Word>();

@@ -4,7 +4,6 @@ using System.Text;
 
 namespace WordSearch
 {
-  
     class Validation
     {
         private static List<Letter>[,] validationArray;
@@ -370,6 +369,11 @@ namespace WordSearch
             return number;
         }
 
+        /// <summary>
+        /// takes the provided user input and validates it against the availible options. If the choice is not valid it will ask the user to try again. 
+        /// </summary>
+        /// <param name="userInput">This is what the user typed into the termrminal</param>
+        /// <returns>any user input which is found to be valid. </returns>
         public static string InitialMenuChoice(string userInput)
         {
             while (!(userInput == "1" || userInput =="2"))
