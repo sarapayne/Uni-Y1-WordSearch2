@@ -21,11 +21,7 @@ namespace WordSearch
         /// </summary>
         public WordSearch()
         {
-            lastWrongStartIndex = new Vector();
-            lastWrongEndIndex = new Vector();
-            validation = new Validation();
-            wordsInCurrentGame = new List<Word>();
-            storage = new Storage();
+            Initilisation();
             InitialMenu();
             gameIndex = new int();
             DisplayWordChoices();
@@ -36,6 +32,15 @@ namespace WordSearch
         {
             get { return this.Storage; }
             set { this.Storage = value; }
+        }
+
+        private void Initilisation()
+        {
+            lastWrongStartIndex = new Vector();
+            lastWrongEndIndex = new Vector();
+            validation = new Validation();
+            wordsInCurrentGame = new List<Word>();
+            storage = new Storage();
         }
 
         public void InitialMenu()
