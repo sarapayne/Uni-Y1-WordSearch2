@@ -24,6 +24,14 @@ namespace WordSearch
             return input;
         }
 
+        /// <summary>
+        /// Takes the supplied file contents and uses that to check if game can be loaded, then outputs the objects needed to build the gameFile object. Inluding refusal reasons. 
+        /// </summary>
+        /// <param name="fileContents">Contents of the file .wrd file loaded from the disc</param>
+        /// <param name="wordsOut">A list of all the word objects to be contained in this gameFile object</param>
+        /// <param name="boardDimensions">a 2d vector object used to store the array sidze of the 2 dimensional array needed for this game file.</param>
+        /// <param name="rejectReason">If the file can not be loaded, this is used to tell the user why it can not be loaded.</param>
+        /// <returns></returns>
         public static bool GameFile(string[] fileContents, out List<Word> wordsOut, out Vector boardDimensions, out string rejectReason)
         {
             words = new List<Word>();
