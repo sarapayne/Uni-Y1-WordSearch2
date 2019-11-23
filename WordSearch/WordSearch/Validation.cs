@@ -14,7 +14,11 @@ namespace WordSearch
         static int rowIndex;
         static int numberOfWords;
 
-
+        /// <summary>
+        /// takes the provided user input and validates it against the availible options. If the choice is not valid it will ask the user to try again. 
+        /// </summary>
+        /// <param name="input">This is what the user typed into the termrminal</param>
+        /// <returns>any user input which is found to be valid. </returns>
         public static string InitialMenu(string input)
         {
             while (input != "1" && input != "2")
@@ -312,6 +316,15 @@ namespace WordSearch
             return wordObjects;
         }
 
+        /// <summary>
+        /// Takes the supplied list of letter objects. Then loops through each one checking to see if an object already exists in the array in the same position. If there are any objects already in that position it will then test to see if they have the same letter. If they do not it will return false, otherwise true. 
+        /// </summary>
+        /// <param name="wordObjects">a list of the letter objects used to make up the word being checked</param>
+        /// <param name="wordName">simple string to show the word being checked</param>
+        /// <param name="reject">the reason the word has been rejected if it has</param>
+        /// <param name="rowReject">int showing the row position of the rejected letter</param>
+        /// <param name="colReject">int showing the collum position of the rejected letter</param>
+        /// <returns></returns>
         private static bool TestLettersOnBoard(List<Letter> wordObjects, string wordName, out string reject, out int rowReject, out int colReject)
         {
             string rejectWord = "";
