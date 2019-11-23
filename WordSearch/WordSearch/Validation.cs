@@ -230,6 +230,15 @@ namespace WordSearch
             return fileOk;
         }//close GameFile
 
+
+        /// <summary>
+        /// Generates a list of Letter objects which form the Word object which is later added to a list as well which will form a property of the GameFile object. 
+        /// </summary>
+        /// <param name="firstRowIndex">row position of the first letter of the word</param>
+        /// <param name="firstCollumIndex">collum position of the first letter of the word</param>
+        /// <param name="word">A string of the word the contained objects make</param>
+        /// <param name="direction">a string showing the direction the word is displayed</param>
+        /// <returns></returns>
         private static List<Letter> GenerateWordObjects(int firstRowIndex, int firstCollumIndex, string word, string direction)
         {
             List<Letter> wordObjects = new List<Letter>();
