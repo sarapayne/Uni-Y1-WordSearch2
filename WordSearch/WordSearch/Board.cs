@@ -124,7 +124,6 @@ namespace WordSearch
             }
         }
 
-
         /// <summary>
         /// Takes a supplied direction string and uses this to asertain the hop values so the calling method can loop through the other cells
         /// which contain the currently processing word. Then returns the row and collum index changes with each loop itteration. 
@@ -197,6 +196,9 @@ namespace WordSearch
             }
         }
 
+        /// <summary>
+        /// Displays the current game board in terminal. 
+        /// </summary>
         public void DisplayBoard()
         {
             Console.Clear();
