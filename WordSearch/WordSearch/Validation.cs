@@ -14,6 +14,7 @@ namespace WordSearch
         static int rowIndex;
         static int numberOfWords;
 
+
         public static string InitialMenu(string input)
         {
             while (input != "1" && input != "2")
@@ -395,15 +396,15 @@ namespace WordSearch
         /// </summary>
         /// <param name="userInput">This is what the user typed into the termrminal</param>
         /// <returns>any user input which is found to be valid. </returns>
-        public static string InitialMenuChoice(string userInput)
-        {
-            while (!(userInput == "1" || userInput =="2"))
-            {
-                Console.WriteLine("Sorry but your entry of " + userInput + " is invalid, valid choices are 1 or 2. Please try again.");
-                userInput = Console.ReadLine();
-            }
-            return userInput;
-        }
+        //public static string InitialMenuChoice(string userInput)
+        //{
+        //    while (!(userInput == "1" || userInput =="2"))
+        //    {
+        //        Console.WriteLine("Sorry but your entry of " + userInput + " is invalid, valid choices are 1 or 2. Please try again.");
+        //        userInput = Console.ReadLine();
+        //    }
+        //    return userInput;
+        //}
     }
 }
 
