@@ -124,6 +124,14 @@ namespace WordSearch
             }
         }
 
+
+        /// <summary>
+        /// Takes a supplied direction string and uses this to asertain the hop values so the calling method can loop through the other cells
+        /// which contain the currently processing word. Then returns the row and collum index changes with each loop itteration. 
+        /// </summary>
+        /// <param name="direction">direction the word is going</param>
+        /// <param name="rowChange">row change for the next letter in the array</param>
+        /// <param name="colChange">collum change for the next letter in the array</param>
         private void RowColChange(string direction, out int rowChange, out int colChange)
         {
             int rChange;
