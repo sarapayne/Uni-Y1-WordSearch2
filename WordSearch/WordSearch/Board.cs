@@ -8,6 +8,13 @@ namespace WordSearch
     {
         private List<Letter>[,] boardArray; //an array of lists, each list containing one or many game objects
 
+        /// <summary>
+        /// Takes the supplied GameFile object, then uses the parameters to generate a new boardArray
+        /// Adds the letter objects for each word object inside the gameFile to the lists which are inside each cell of the boardArray. 
+        /// Fills the lists inside each of the cell arrays with a randomly generated letter object. 
+        /// Finally it displays the contents of the new board. 
+        /// </summary>
+        /// <param name="gameFileToLoad">gameFile object passed into the method. </param>
         public Board (GameFile gameFileToLoad)
         {
             boardArray = new List<Letter>[gameFileToLoad.BoardDimensions.Row, gameFileToLoad.BoardDimensions.Collum];
