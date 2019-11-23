@@ -79,6 +79,17 @@ namespace WordSearch
             }
         }
 
+        /// <summary>
+        /// Retrieves the list of letter objects found in the specified cell of the boardArray. 
+        /// Checks each one untill it finds a letter object with a Word property which matches the supplied word
+        /// Using this letter object the diection of the specified word is retrieved. 
+        /// Each letter object in the word is then looped through updating its colour based on the found/clear bools
+        /// </summary>
+        /// <param name="startRowIndex">first letter row index in the boardArray</param>
+        /// <param name="startColIndex">first letter col index in the boardArray</param>
+        /// <param name="word">string of the word being checked so the method can retrieve the direction of the word form the letter obeject</param>
+        /// <param name="found">bool showing if this letter is part of a found word</param>
+        /// <param name="clear">bool showing if this letter should be displayed in red or white</param>
         public void UpdateBoardArray(int startRowIndex, int startColIndex, string word, bool found, bool clear)
         {
             string direction = "";
