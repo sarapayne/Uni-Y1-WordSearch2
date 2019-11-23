@@ -172,6 +172,12 @@ namespace WordSearch
             colChange = cChange;
         }
 
+        /// <summary>
+        /// Loops through the contents of the supplied list updating the colour property of matching letter obejcts. 
+        /// </summary>
+        /// <param name="cellContents">list containing the letter objects in one cell of the board array</param>
+        /// <param name="word">word we are validating the update against.</param>
+        /// <param name="textColour">console colour to change the matching letter objects to. </param>
         private void UpdateAllCellObjectsColour(List<Letter> cellContents, string word, ConsoleColor textColour)
         {
             foreach (Letter letter in cellContents)
