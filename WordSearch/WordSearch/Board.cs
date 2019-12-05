@@ -242,9 +242,9 @@ namespace WordSearch
             {
                 for (int colIndex = 0; colIndex < boardArray.GetLength(1); colIndex++)
                 {
-                    if (boardArray[rowIndex,colIndex] == null)
+                    Vector position = new Vector(rowIndex, colIndex);
+                    if (boardArray[rowIndex, colIndex] == null)
                     {
-                        Vector position = new Vector(rowIndex, colIndex);
                         if (rowIndex == 0 && colIndex == 0)
                         {
                             Letter emptySpace = new Letter();
@@ -287,18 +287,38 @@ namespace WordSearch
                         else
                         {
                             string randomChar = Convert.ToString((char)random.Next('a', 'z'));
-                            Letter randomLetter = new Letter();
-                            randomLetter.Character = randomChar;
-                            randomLetter.Direction = "";
-                            randomLetter.Positon = position;
-                            randomLetter.Word = "";
-                            randomLetter.WordEnd = false;
-                            randomLetter.WordStart = false;
                             List<Letter> mainAreaCellList = new List<Letter>();
-                            mainAreaCellList.Add(randomLetter);
+                            for (int count = 0; count <= 10; count++)
+                            {
+                                Letter randomLetter = new Letter();
+                                randomLetter.Character = randomChar;
+                                randomLetter.Direction = "";
+                                randomLetter.Positon = position;
+                                randomLetter.Word = "";
+                                randomLetter.WordEnd = false;
+                                randomLetter.WordStart = false;
+                                mainAreaCellList.Add(randomLetter);
+                            }
                             boardArray[rowIndex, colIndex] = mainAreaCellList;
                         }
                     }
+                    else if (boardArray[rowIndex, colIndex].Count < 11)
+                    {
+                        string existingChar = boardArray[rowIndex, colIndex][0].Character;
+                        for (int extraCount = 0; extraCount <=2; extraCount++)
+                        {
+                            Letter extraLetter = new Letter();
+                            extraLetter.Character = existingChar;
+                            extraLetter.Direction = "";
+                            extraLetter.Positon = position;
+                            extraLetter.Word = "";
+                            extraLetter.WordEnd = false;
+                            extraLetter.WordStart = true;
+                            boardArray[rowIndex, colIndex].Add(extraLetter);
+                        }
+                        
+                    }
+
                 }
             }
         }
