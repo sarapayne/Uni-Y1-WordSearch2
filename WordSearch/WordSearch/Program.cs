@@ -11,12 +11,6 @@ namespace WordSearch
             Startup();
         }
 
-        /// <summary>
-        /// Starts the main aplication by generating a new wordSearch object
-        /// </summary>
-        /// <param name="name of the parameter here"> Description of the parameter here </param>
-        /// <returns> if something gets returned add it here </returns>
-
         
         /// <summary>
         /// Starts the main application by generating a new wordSearchObject. 
