@@ -209,13 +209,19 @@ namespace WordSearch
                     List<Letter> cellContents = new List<Letter>();
                     cellContents = boardArray[rowIndex, collumIndex];
                     ConsoleColor charColour = ConsoleColor.White;
+                    bool yellowPresent = false;
+                    bool redPresent = false;
+                    bool greenPresent = false;
                     foreach (Letter letter in cellContents)
-                    {   //there should only ever be a possibility of white or 1 other colour in each cell. 
-                        if (charColour != ConsoleColor.Green)
-                        {   //prevent the colour changing from green if green is set
-                            charColour = letter.Color;
-                        }
+                    {
+                        if (letter.Color == ConsoleColor.Yellow) yellowPresent = true;
+                        if (letter.Color == ConsoleColor.Red) redPresent = true;
+                        if (letter.Color == ConsoleColor.Green) greenPresent = true;
                     }
+                    if (yellowPresent) charColour = ConsoleColor.Yellow;
+                    else if (redPresent) charColour = ConsoleColor.Red;
+                    else if (greenPresent) charColour = ConsoleColor.Green;
+                    else charColour = ConsoleColor.White;
                     Console.ForegroundColor = charColour;
                     string cellstring = cellContents[0].Character;
                     Console.Write(cellstring.PadRight(4));

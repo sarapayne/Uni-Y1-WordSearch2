@@ -8,3 +8,14 @@ F:\source\Personal\WordSearch2\WordSearch\WordSearch\bin\Debug\netcoreapp2.1\Wor
 F:\source\Personal\WordSearch2\WordSearch\WordSearch\bin\Debug\netcoreapp2.1\WordSearch.pdb
 F:\source\Personal\WordSearch2\WordSearch\WordSearch\obj\Debug\netcoreapp2.1\WordSearch.dll
 F:\source\Personal\WordSearch2\WordSearch\WordSearch\obj\Debug\netcoreapp2.1\WordSearch.pdb
+W:\Source\Personal\Wordsearch2\WordSearch\WordSearch\bin\Debug\netcoreapp2.1\WordSearch.deps.json
+W:\Source\Personal\Wordsearch2\WordSearch\WordSearch\bin\Debug\netcoreapp2.1\WordSearch.runtimeconfig.json
+W:\Source\Personal\Wordsearch2\WordSearch\WordSearch\bin\Debug\netcoreapp2.1\WordSearch.runtimeconfig.dev.json
+W:\Source\Personal\Wordsearch2\WordSearch\WordSearch\bin\Debug\netcoreapp2.1\WordSearch.dll
+W:\Source\Personal\Wordsearch2\WordSearch\WordSearch\bin\Debug\netcoreapp2.1\WordSearch.pdb
+W:\Source\Personal\Wordsearch2\WordSearch\WordSearch\obj\Debug\netcoreapp2.1\WordSearch.csprojAssemblyReference.cache
+W:\Source\Personal\Wordsearch2\WordSearch\WordSearch\obj\Debug\netcoreapp2.1\WordSearch.csproj.CoreCompileInputs.cache
+W:\Source\Personal\Wordsearch2\WordSearch\WordSearch\obj\Debug\netcoreapp2.1\WordSearch.AssemblyInfoInputs.cache
+W:\Source\Personal\Wordsearch2\WordSearch\WordSearch\obj\Debug\netcoreapp2.1\WordSearch.AssemblyInfo.cs
+W:\Source\Personal\Wordsearch2\WordSearch\WordSearch\obj\Debug\netcoreapp2.1\WordSearch.dll
+W:\Source\Personal\Wordsearch2\WordSearch\WordSearch\obj\Debug\netcoreapp2.1\WordSearch.pdb
