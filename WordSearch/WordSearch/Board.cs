@@ -288,7 +288,7 @@ namespace WordSearch
                         {
                             string randomChar = Convert.ToString((char)random.Next('a', 'z'));
                             List<Letter> mainAreaCellList = new List<Letter>();
-                            for (int count = 0; count <= 10; count++)
+                            for (int count = 0; count <= 2; count++)
                             {
                                 Letter randomLetter = new Letter();
                                 randomLetter.Character = randomChar;
@@ -302,7 +302,7 @@ namespace WordSearch
                             boardArray[rowIndex, colIndex] = mainAreaCellList;
                         }
                     }
-                    else if (boardArray[rowIndex, colIndex].Count < 11)
+                    else
                     {
                         string existingChar = boardArray[rowIndex, colIndex][0].Character;
                         for (int extraCount = 0; extraCount <=2; extraCount++)
