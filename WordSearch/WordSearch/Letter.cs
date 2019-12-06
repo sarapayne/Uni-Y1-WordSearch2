@@ -35,6 +35,16 @@ namespace WordSearch
             color = colour;
         }
 
+        public Letter (string letter, Vector pos)
+        {
+            character = letter;
+            direction = "";
+            position = pos;
+            word = "";
+            wordEnd = false;
+            WordStart = false;
+        }
+
         public string Direction
         {
             get { return this.direction; }

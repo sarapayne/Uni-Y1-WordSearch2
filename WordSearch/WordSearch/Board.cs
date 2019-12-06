@@ -286,35 +286,23 @@ namespace WordSearch
                             boardArray[rowIndex, colIndex] = colHeadCellList;
                         }
                         else
-                        {
+                        {   //ensure we hve at least two letter objects
                             string randomChar = Convert.ToString((char)random.Next('a', 'z'));
                             List<Letter> mainAreaCellList = new List<Letter>();
                             for (int count = 0; count <= 2; count++)
                             {
-                                Letter randomLetter = new Letter();
-                                randomLetter.Character = randomChar;
-                                randomLetter.Direction = "";
-                                randomLetter.Positon = position;
-                                randomLetter.Word = "";
-                                randomLetter.WordEnd = false;
-                                randomLetter.WordStart = false;
+                                Letter randomLetter = new Letter(randomChar, position);
                                 mainAreaCellList.Add(randomLetter);
                             }
                             boardArray[rowIndex, colIndex] = mainAreaCellList;
                         }
                     }
                     else
-                    {
+                    {   //ensure we have two more letter objects than requited by the words crossing the cell
                         string existingChar = boardArray[rowIndex, colIndex][0].Character;
                         for (int extraCount = 0; extraCount <=2; extraCount++)
                         {
-                            Letter extraLetter = new Letter();
-                            extraLetter.Character = existingChar;
-                            extraLetter.Direction = "";
-                            extraLetter.Positon = position;
-                            extraLetter.Word = "";
-                            extraLetter.WordEnd = false;
-                            extraLetter.WordStart = true;
+                            Letter extraLetter = new Letter(existingChar, position);
                             boardArray[rowIndex, colIndex].Add(extraLetter);
                         }
                         
